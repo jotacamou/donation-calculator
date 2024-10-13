@@ -26,6 +26,16 @@ h2 {
   font-family: 'Arial', sans-serif;
 }
 
+select {
+  background-color: transparent;
+  color: black;
+}
+
+option {
+  background-color: transparent;
+  color: black;
+}
+
 form {
   display: flex;
   /*flex-direction: column;*/
