@@ -116,7 +116,7 @@ function App() {
             placeholder="Total family kids enrolled"
             required
           />
-          <label htmlFor="familyDonation">Total family donation</label>
+          <label htmlFor="familyDonation">Total family donation amount</label>
           <input
             type="text"
             name="familyDonation"
