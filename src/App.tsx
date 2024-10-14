@@ -7,26 +7,28 @@ import { useState } from 'react';
 import Header from './Header.tsx';
 
 function App() {
-  const [familyEnrolled, setFamilyEnrolled] = useState(0);
-  const [familyDonation, setFamilyDonation] = useState(0);
+  const [familyEnrolled, setFamilyEnrolled] = useState('');
+  const [familyDonation, setFamilyDonation] = useState('');
   const [donationPeriod, setDonationPeriod] = useState('month');
 
   const handleFamilyEnrolled = (e) => {
-    const value = parseFloat(e.target.value);
+    const value = e.target.value;
+
     if (isNaN(value)) {
-      setFamilyEnrolled(0);
+      setFamilyEnrolled('');
     } else {
       setFamilyEnrolled(value);
     }
+
+    console.log(familyEnrolled);
   };
 
   const handleFamilyDonation = (e) => {
     const value = parseFloat(e.target.value);
-
     if (isNaN(value)) {
-      setFamilyDonation(0);
+      setFamilyDonation('');
     } else {
-      setFamilyDonation(value);
+      setFamilyDonation(value.toString());
     }
   };
 
@@ -35,34 +37,67 @@ function App() {
   };
 
   const calculateYearlyDonation = () => {
-    console.log(familyDonation);
+    if (parseFloat(familyDonation) === 0 || isNaN(parseFloat(familyDonation))) {
+      return 0;
+    }
     if (donationPeriod === 'year') {
       return familyDonation;
     }
-    return familyDonation * 12;
+    return parseFloat(familyDonation) * 12;
   };
 
   const calculatePerKidYearlyDonation = () => {
     const yearlyDonation = calculateYearlyDonation();
-    if (familyEnrolled === 0) {
-      return yearlyDonation;
+    if (parseFloat(familyEnrolled) === 0 || isNaN(parseFloat(familyEnrolled))) {
+      return 0;
     }
-    return yearlyDonation / familyEnrolled;
+    return (
+      parseFloat(yearlyDonation.toString()) /
+      parseFloat(familyEnrolled.toString())
+    );
   };
 
   const calculateMonthlyDonation = () => {
+    let monthly: number;
     if (donationPeriod === 'month') {
-      return familyDonation;
+      if (
+        parseFloat(familyDonation) === 0 ||
+        isNaN(parseFloat(familyDonation))
+      ) {
+        monthly = 0;
+      } else {
+        monthly = parseFloat(familyDonation);
+      }
+
+      return monthly;
+    } else {
+      if (
+        parseFloat(familyDonation) === 0 ||
+        isNaN(parseFloat(familyDonation))
+      ) {
+        monthly = 0;
+      } else {
+        monthly = parseFloat(familyDonation);
+      }
+
+      return monthly / 12;
     }
-    return familyDonation * 12;
   };
 
   const calculatePerKidMonthlyDonation = () => {
     const monthlyDonation = calculateMonthlyDonation();
-    if (familyEnrolled === 0) {
-      return monthlyDonation;
+    if (
+      parseFloat(familyEnrolled) === 0 ||
+      parseFloat(familyDonation) === 0 ||
+      isNaN(parseFloat(familyEnrolled)) ||
+      isNaN(parseFloat(familyDonation))
+    ) {
+      return 0;
     }
-    return monthlyDonation / familyEnrolled;
+    return (
+      parseFloat(monthlyDonation.toString()) /
+      parseFloat(familyEnrolled.toString())
+    );
   };
 
   return (
@@ -73,7 +108,7 @@ function App() {
         <form action="#" method="get">
           <label htmlFor="familyEnrolled">Number of kids enrolled</label>
           <input
-            type="number"
+            type="text"
             name="familyEnrolled"
             id="familyEnrolled"
             value={familyEnrolled}
@@ -83,7 +118,7 @@ function App() {
           />
           <label htmlFor="familyDonation">Total family donation</label>
           <input
-            type="number"
+            type="text"
             name="familyDonation"
             id="familyDonation"
             value={familyDonation}
@@ -112,7 +147,7 @@ function App() {
                 {new Intl.NumberFormat('en-US', {
                   style: 'currency',
                   currency: 'USD',
-                }).format(calculateYearlyDonation())}
+                }).format(parseFloat(calculateYearlyDonation().toString()))}
               </td>
             </tr>
             <tr>
@@ -139,7 +174,7 @@ function App() {
                 {new Intl.NumberFormat('en-US', {
                   style: 'currency',
                   currency: 'USD',
-                }).format(calculateMonthlyDonation())}
+                }).format(parseFloat(calculateMonthlyDonation().toString()))}
               </td>
             </tr>
           </tbody>

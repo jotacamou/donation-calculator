@@ -17,7 +17,7 @@ body {
   border-radius: 10px;
   box-shadow: 0 0 200px rgba(0, 0, 0, 0.2);
   padding: 40px;
-  width: 500px;
+  width: 700px;
   text-align: center;
 }
 
@@ -94,7 +94,7 @@ input[type='text'] {
   margin: 1px 0;
   font-size: 0.9em;
   font-family: 'Arial', sans-serif;
-  min-width: 450px;
+  min-width: 500px;
   border-radius: 5px;
   padding: 10px;
 
@@ -130,6 +130,7 @@ input[type='text'] {
   font-weight: bold;
   background-color: #009879;
   color: #ffffff;
+  width: 500px;
 }
 
 .styled-fieldset {
