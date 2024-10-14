@@ -19,8 +19,6 @@ function App() {
     } else {
       setFamilyEnrolled(value);
     }
-
-    console.log(familyEnrolled);
   };
 
   const handleFamilyDonation = (e) => {
