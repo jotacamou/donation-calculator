@@ -1,7 +1,7 @@
 // Filename - App.tsx
 // It contains the main application component
 
-import React from 'react';
+//import React from 'react';
 import './App.css';
 import { useState } from 'react';
 import Header from './Header.tsx';
