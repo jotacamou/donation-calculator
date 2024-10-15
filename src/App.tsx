@@ -103,13 +103,33 @@ const App = () => {
   const totalStudents = 300;
   const studentsWithDonations = 70;
 
+  const calculateStudentsWithDonations = () => {
+    if (isNaN(parseFloat(familyEnrolled)) || parseFloat(familyEnrolled) === 0) {
+      return studentsWithDonations;
+    }
+    return studentsWithDonations + parseFloat(familyEnrolled);
+  };
+
   const calculateParticipationRate = () => {
-    return ((studentsWithDonations / totalStudents) * 100).toFixed(2);
+    if (
+      isNaN(parseFloat(familyEnrolled)) ||
+      parseFloat(familyEnrolled) === 0 ||
+      isNaN(parseFloat(familyDonation)) ||
+      parseFloat(familyDonation) === 0
+    ) {
+      console.log(familyDonation);
+      return ((studentsWithDonations / totalStudents) * 100).toFixed(2);
+    } else {
+      return (
+        ((studentsWithDonations + parseFloat(familyEnrolled)) / totalStudents) *
+        100
+      ).toFixed(2);
+    }
   };
 
   const participationRate = calculateParticipationRate();
   const participationRateColor =
-    parseFloat(participationRate) >= 50 ? 'green' : 'red';
+    parseFloat(participationRate.toString()) >= 50 ? 'green' : 'red';
 
   return (
     <div className="App">
@@ -152,6 +172,17 @@ const App = () => {
 
       <div className="dashboard">
         <div className="dashboard-box">
+          <h3>Watershed Minimum Anual Goal</h3>
+          <p>
+            {new Intl.NumberFormat('en-US', {
+              style: 'currency',
+              currency: 'USD',
+            }).format(parseFloat('200000'))}
+          </p>
+        </div>
+      </div>
+      <div className="dashboard">
+        <div className="dashboard-box">
           <h3>Total Family Donation per Year</h3>
           <p>
             {new Intl.NumberFormat('en-US', {
@@ -160,6 +191,7 @@ const App = () => {
             }).format(parseFloat(calculateYearlyDonation().toString()))}
           </p>
         </div>
+
         <div className="dashboard-box">
           <h3>Total Family Watershed per Month</h3>
           <p>
@@ -197,7 +229,7 @@ const App = () => {
         </div>
         <div className="dashboard-box">
           <h3>Students with Watershed Donations</h3>
-          <p>{studentsWithDonations}</p>
+          <p>{calculateStudentsWithDonations().toString()}</p>
         </div>
         <div className="dashboard-box">
           <h3>Participation Rate</h3>
