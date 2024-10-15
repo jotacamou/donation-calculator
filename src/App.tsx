@@ -114,7 +114,7 @@ const App = () => {
   return (
     <div className="App">
       <Header />
-      <h2>Donation Calculator</h2>
+      <h2>Watershed Donation Calculator</h2>
       <fieldset className="styled-fieldset">
         <form action="#" method="get">
           <label htmlFor="familyEnrolled">Family kids enrolled</label>
@@ -124,7 +124,7 @@ const App = () => {
             id="familyEnrolled"
             value={familyEnrolled}
             onChange={handleFamilyEnrolled}
-            placeholder="Total family kids enrolled"
+            placeholder="Enter the total number of enrolled children in your family"
             required
           />
           <label htmlFor="familyDonation">Donation amount</label>
@@ -134,7 +134,7 @@ const App = () => {
             id="familyDonation"
             value={familyDonation}
             onChange={handleFamilyDonation}
-            placeholder="total donation"
+            placeholder="Enter an amount to donate monthly or yearly based on the selected period"
             required
           />
           <label htmlFor="donationPeriod">Donation Period</label>
@@ -144,8 +144,8 @@ const App = () => {
             value={donationPeriod}
             onChange={handleDonationPeriodChange}
           >
-            <option value="month">Month</option>
-            <option value="year">Year</option>
+            <option value="month">Monthly</option>
+            <option value="year">Yearly</option>
           </select>
         </form>
       </fieldset>

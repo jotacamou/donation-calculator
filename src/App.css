@@ -15,13 +15,14 @@ body {
   border-radius: 10px;
   box-shadow: 0 0 200px rgba(0, 0, 0, 0.2);
   padding: 40px;
-  width: 900px;
+  /*width: 900px;*/
   text-align: center;
 }
 
 h2 {
   color: black; /* Set h1 text color to black */
   font-family: 'Arial', sans-serif;
+  text-align: left;
 }
 
 select {
@@ -36,7 +37,7 @@ option {
 
 form {
   display: flex;
-  /*flex-direction: column;*/
+  flex-direction: column;
   align-items: flex-start;
 }
 
