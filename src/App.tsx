@@ -1,12 +1,12 @@
-// Filename - App.js
-// It contains the Form, its Structure
-// and Basic Form Functionalities
+// Filename - App.tsx
+// It contains the main application component
 
+import React from 'react';
 import './App.css';
 import { useState } from 'react';
 import Header from './Header.tsx';
 
-function App() {
+const App = () => {
   const [familyEnrolled, setFamilyEnrolled] = useState('');
   const [familyDonation, setFamilyDonation] = useState('');
   const [donationPeriod, setDonationPeriod] = useState('month');
@@ -98,13 +98,26 @@ function App() {
     );
   };
 
+  // TODO: Replace these hardcoded values with actual data
+  //       to be fetched from "source of truth".
+  const totalStudents = 300;
+  const studentsWithDonations = 70;
+
+  const calculateParticipationRate = () => {
+    return ((studentsWithDonations / totalStudents) * 100).toFixed(2);
+  };
+
+  const participationRate = calculateParticipationRate();
+  const participationRateColor =
+    parseFloat(participationRate) >= 50 ? 'green' : 'red';
+
   return (
     <div className="App">
       <Header />
       <h2>Donation Calculator</h2>
       <fieldset className="styled-fieldset">
         <form action="#" method="get">
-          <label htmlFor="familyEnrolled">Number of kids enrolled</label>
+          <label htmlFor="familyEnrolled">Family kids enrolled</label>
           <input
             type="text"
             name="familyEnrolled"
@@ -114,7 +127,7 @@ function App() {
             placeholder="Total family kids enrolled"
             required
           />
-          <label htmlFor="familyDonation">Total family donation amount</label>
+          <label htmlFor="familyDonation">Donation amount</label>
           <input
             type="text"
             name="familyDonation"
@@ -136,50 +149,70 @@ function App() {
           </select>
         </form>
       </fieldset>
-      <div className="yearly-donation">
-        <table className="styled-table">
-          <tbody>
-            <tr>
-              <td>Total Donation amount per Year</td>
-              <td>
-                {new Intl.NumberFormat('en-US', {
-                  style: 'currency',
-                  currency: 'USD',
-                }).format(parseFloat(calculateYearlyDonation().toString()))}
-              </td>
-            </tr>
-            <tr>
-              <td>Per kid per year</td>
-              <td>
-                {new Intl.NumberFormat('en-US', {
-                  style: 'currency',
-                  currency: 'USD',
-                }).format(calculatePerKidYearlyDonation())}
-              </td>
-            </tr>
-            <tr>
-              <td>Per kid per month</td>
-              <td>
-                {new Intl.NumberFormat('en-US', {
-                  style: 'currency',
-                  currency: 'USD',
-                }).format(calculatePerKidMonthlyDonation())}
-              </td>
-            </tr>
-            <tr>
-              <td>Total Monthtly Watershed Amount</td>
-              <td>
-                {new Intl.NumberFormat('en-US', {
-                  style: 'currency',
-                  currency: 'USD',
-                }).format(parseFloat(calculateMonthlyDonation().toString()))}
-              </td>
-            </tr>
-          </tbody>
-        </table>
+
+      <div className="dashboard">
+        <div className="dashboard-box">
+          <h3>Total Family Donation per Year</h3>
+          <p>
+            {new Intl.NumberFormat('en-US', {
+              style: 'currency',
+              currency: 'USD',
+            }).format(parseFloat(calculateYearlyDonation().toString()))}
+          </p>
+        </div>
+        <div className="dashboard-box">
+          <h3>Total Family Watershed per Month</h3>
+          <p>
+            {new Intl.NumberFormat('en-US', {
+              style: 'currency',
+              currency: 'USD',
+            }).format(parseFloat(calculateMonthlyDonation().toString()))}
+          </p>
+        </div>
+      </div>
+      <div className="dashboard">
+        <div className="dashboard-box">
+          <h3>Yearly "Tuition" per child</h3>
+          <p>
+            {new Intl.NumberFormat('en-US', {
+              style: 'currency',
+              currency: 'USD',
+            }).format(calculatePerKidYearlyDonation())}
+          </p>
+        </div>
+        <div className="dashboard-box">
+          <h3>Monthly "Tuition" per child</h3>
+          <p>
+            {new Intl.NumberFormat('en-US', {
+              style: 'currency',
+              currency: 'USD',
+            }).format(parseFloat(calculatePerKidMonthlyDonation().toString()))}
+          </p>
+        </div>
+      </div>
+      <div className="dashboard">
+        <div className="dashboard-box">
+          <h3>Total School Students</h3>
+          <p>{totalStudents}</p>
+        </div>
+        <div className="dashboard-box">
+          <h3>Students with Watershed Donations</h3>
+          <p>{studentsWithDonations}</p>
+        </div>
+        <div className="dashboard-box">
+          <h3>Participation Rate</h3>
+          <p
+            style={{
+              color: participationRateColor,
+              fontFamily: 'Courier New, Courier, monospace',
+            }}
+          >
+            {participationRate}%
+          </p>
+        </div>
       </div>
     </div>
   );
-}
+};
 
 export default App;
