@@ -204,7 +204,6 @@ const App = () => {
           <p
             style={{
               color: participationRateColor,
-              fontFamily: 'Courier New, Courier, monospace',
             }}
           >
             {participationRate}%
